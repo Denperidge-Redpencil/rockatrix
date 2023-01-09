@@ -1,0 +1,61 @@
+[[gateway]]
+name="gateway1"
+enable=true
+
+[[gateway.inout]]
+account="matrix.mymatrix"
+
+[[gateway.inout]]
+account="rocketchat.myrocketchat"
+
+
+[rocketchat.myrocketchat]
+#The rocketchat hostname. (prefix it with http or https)
+#REQUIRED (when not using webhooks)
+Server="http://localhost:3000"
+
+#login information for your bot 
+#REQUIRED (when not using webhooks)
+#You can use either Login/Password (login needs to be the login with email address! user@domain.com)
+#or Login/Token. In this case, Login is actually your ID
+#Use a dedicated user for this and not your own!
+Login="example@example.com"
+Password="example"
+
+#Whether to prefix messages from other bridges to rocketchat with the sender's nick.
+#Useful if username overrides for incoming webhooks isn't enabled on the
+#rocketchat server. If you set PrefixMessagesWithNick to true, each message
+#from bridge to rocketchat will by default be prefixed by the RemoteNickFormat setting. i
+#if you're using login/pass you can better enable because of this bug:
+#https://github.com/RocketChat/Rocket.Chat/issues/7549
+#OPTIONAL (default false)
+PrefixMessagesWithNick=true
+
+#Your bot must have the role "bot". If it doesn't you will get the bug described in:
+#https://github.com/RocketChat/Rocket.Chat/issues/16097
+RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
+
+[matrix.mymatrix]
+#Server is your homeserver (eg https://matrix.org)
+Server="http://localhost:8008"
+
+#login/pass of your bot.
+#Use a dedicated user for this and not your own!
+#Messages sent from this user will not be relayed to avoid loops.
+Login="@example:example.org"
+Password="example"
+
+#Alternatively you can use MXID and access token (open https://app.element.io/
+#in INCOGNITO mode, open Settings -> lowest tab and above "clear cache and reload"
+#you can find the access token. Close the window without logging out
+#(or the token gets invalid (if it leaks, it can be removed by logging in and using the sessions menu))
+#MxID="@yourbot:example.net"
+#Token="tokenforthebotuser"
+
+RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
+
+#Whether to send the homeserver suffix. eg ":matrix.org" in @username:matrix.org
+#to other bridges, or only send "username".(true only sends username)
+#OPTIONAL (default false)
+NoHomeServerSuffix=false

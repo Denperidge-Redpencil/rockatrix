@@ -52,6 +52,7 @@ services:
       - ${PORT:-3000}
     ports:
       - "${BIND_IP:-0.0.0.0}:${HOST_PORT:-3000}:${PORT:-3000}"
+      - "3300:3300"
 
   #mongodb:
    # image: mongo
@@ -68,4 +69,13 @@ services:
       MONGODB_ADVERTISED_HOSTNAME: mongodb
       MONGODB_ENABLE_JOURNAL: "true"
       ALLOW_EMPTY_PASSWORD: "yes"
+  
+  matterbridge:
+    image: 42wim/matterbridge:stable
+    restart: unless-stopped
+    volumes:
+      - ./matterbridge.toml:/etc/matterbridge/matterbridge.toml:ro
+    depends_on:
+      - rocketchat
+      - synapse
 

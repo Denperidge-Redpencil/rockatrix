@@ -11,7 +11,7 @@ docker run -it --rm -v "${PWD}/synapse:/data" -e SYNAPSE_SERVER_NAME=example.org
 # Start services
 docker-compose up --detach
 # Create a user for Synapse
-docker-compose exec -it synapse bash
+docker-compose exec synapse bash
 register_new_matrix_user -c /data/homeserver.yaml http://localhost:8008
 ```
 
@@ -28,3 +28,9 @@ You can access Elements on http://localhost:80. Set the homeserver to `http://lo
 You can access rocketchat on http://localhost:3000.
 
 For my own findings, please see [Denperidge-Redpencil/Learning.md/things-to-check-out#update-findings](https://github.com/Denperidge-Redpencil/Learning.md/blob/main/Notes/things-to-check-out.md#update-findings).
+
+## Notes that have to be properly integrated
+- Bridge URL: expose 3300
+- Create user with bot role (rocketchat)
+
+
