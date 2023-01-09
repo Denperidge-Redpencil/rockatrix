@@ -1,0 +1,71 @@
+version: '3.3'
+
+services:
+  element:
+    image: vectorim/element-web:latest
+    restart: unless-stopped
+    volumes:
+      - ./element-config.json:/app/config.json
+    ports:
+      - "80:80"
+    
+  synapse:
+    image: matrixdotorg/synapse:latest
+    restart: unless-stopped
+    volumes:
+     - ./synapse:/data
+    ports:
+      - "8008:8008"
+
+  postgres:
+    image: postgres:11
+    restart: unless-stopped
+    volumes:
+     - ./postgresdata:/var/lib/postgresql/data
+    environment:
+     - POSTGRES_DB=synapse
+     - POSTGRES_USER=synapse
+     - POSTGRES_PASSWORD=STRONGPASSWORD
+     - POSTGRES_INITDB_ARGS=--lc-collate C --lc-ctype C --encoding UTF8
+
+
+  # Adapted from https://docs.rocket.chat/quick-start/deploying-rocket.chat/rapid-deployment-methods/docker-and-docker-compose
+  rocketchat:
+    image: registry.rocket.chat/rocketchat/rocket.chat:5.4.1
+    restart: unless-stopped
+    # labels:
+    #   traefik.enable: "true"
+    #   traefik.http.routers.rocketchat.rule: Host(`${DOMAIN}`)
+    #   traefik.http.routers.rocketchat.tls: "true"
+    #   traefik.http.routers.rocketchat.entrypoints: https
+    #   traefik.http.routers.rocketchat.tls.certresolver: le
+    environment:
+      MONGO_URL: mongodb://mongodb:27017/rocketchat?replicaSet=rs0
+      MONGO_OPLOG_URL: mongodb://mongodb:27017/local?replicaSet=rs0
+      ROOT_URL: http://localhost:3000
+      PORT: ${PORT:-3000}
+      DEPLOY_METHOD: docker
+      DEPLOY_PLATFORM: ${DEPLOY_PLATFORM}
+    depends_on:
+      - mongodb
+    expose:
+      - ${PORT:-3000}
+    ports:
+      - "${BIND_IP:-0.0.0.0}:${HOST_PORT:-3000}:${PORT:-3000}"
+
+  #mongodb:
+   # image: mongo
+    #restart: unless-stopped
+  mongodb:
+    image: docker.io/bitnami/mongodb:4.4
+    restart: unless-stopped
+    environment:
+      MONGODB_REPLICA_SET_MODE: primary
+      MONGODB_REPLICA_SET_NAME: rs0
+      MONGODB_PORT_NUMBER: 27017
+      MONGODB_INITIAL_PRIMARY_HOST: mongodb
+      MONGODB_INITIAL_PRIMARY_PORT_NUMBER: 27017
+      MONGODB_ADVERTISED_HOSTNAME: mongodb
+      MONGODB_ENABLE_JOURNAL: "true"
+      ALLOW_EMPTY_PASSWORD: "yes"
+
