@@ -71,7 +71,7 @@ services:
       ALLOW_EMPTY_PASSWORD: "yes"
   
   matterbridge:
-    image: 42wim/matterbridge:stable
+    image: 42wim/matterbridge:1.25
     restart: unless-stopped
     volumes:
       - ./matterbridge.toml:/etc/matterbridge/matterbridge.toml:ro
