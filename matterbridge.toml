@@ -53,11 +53,22 @@ NoHomeServerSuffix=false
 [[gateway]]
 name="gateway1"
 enable=true
+    [[gateway.inout]]
+    account="matrix.mymatrix"
+    channel="#generals:example.org"
 
-[[gateway.inout]]
-account="matrix.mymatrix"
-channel="#meowmeow:example.org"
+    [[gateway.inout]]
+    account="rocketchat.myrocketchat"
+    channel="#general"
 
-[[gateway.inout]]
-account="rocketchat.myrocketchat"
-channel="#general"
+
+[[gateway]]
+name="gateway2"
+enable=true
+    [[gateway.inout]]
+    account="matrix.mymatrix"
+    channel="#supports:example.org"
+
+    [[gateway.inout]]
+    account="rocketchat.myrocketchat"
+    channel="#anotherchannel"
