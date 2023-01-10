@@ -16,6 +16,7 @@ services:
      - ./synapse:/data
     ports:
       - "8008:8008"
+      - "8448:8448"
 
   postgres:
     image: postgres:11

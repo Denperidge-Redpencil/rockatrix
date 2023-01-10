@@ -1,2 +1,4 @@
 synapse/
 postgresdata/
+automated-setup-test/data/
+automated-setup-test/uploads/
