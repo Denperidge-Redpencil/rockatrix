@@ -34,3 +34,4 @@ For my own findings, please see [Denperidge-Redpencil/Learning.md/things-to-chec
 - Create user with bot role (rocketchat)
 
 
+for matterbridge: use the docker service names, NOT localhost

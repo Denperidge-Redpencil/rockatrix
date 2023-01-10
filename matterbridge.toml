@@ -1,18 +1,8 @@
-[[gateway]]
-name="gateway1"
-enable=true
-
-[[gateway.inout]]
-account="matrix.mymatrix"
-
-[[gateway.inout]]
-account="rocketchat.myrocketchat"
-
 
 [rocketchat.myrocketchat]
 #The rocketchat hostname. (prefix it with http or https)
 #REQUIRED (when not using webhooks)
-Server="http://localhost:3000"
+Server="http://rocketchat:3000"
 
 #login information for your bot 
 #REQUIRED (when not using webhooks)
@@ -38,12 +28,12 @@ RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
 
 [matrix.mymatrix]
 #Server is your homeserver (eg https://matrix.org)
-Server="http://localhost:8008"
+Server="http://synapse:8008"
 
 #login/pass of your bot.
 #Use a dedicated user for this and not your own!
 #Messages sent from this user will not be relayed to avoid loops.
-Login="@example:example.org"
+Login="example"
 Password="example"
 
 #Alternatively you can use MXID and access token (open https://app.element.io/
@@ -59,3 +49,15 @@ RemoteNickFormat="[{PROTOCOL}] <{NICK}> "
 #to other bridges, or only send "username".(true only sends username)
 #OPTIONAL (default false)
 NoHomeServerSuffix=false
+
+[[gateway]]
+name="gateway1"
+enable=true
+
+[[gateway.inout]]
+account="matrix.mymatrix"
+channel="#meowmeow:example.org"
+
+[[gateway.inout]]
+account="rocketchat.myrocketchat"
+channel="#general"
