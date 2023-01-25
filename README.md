@@ -59,3 +59,6 @@ You can access rocketchat on http://localhost:3000.
 Note: when changing the URLs in matterbridge.toml: use the docker service names, NOT localhost.
 
 For my own findings, please see [Denperidge-Redpencil/Learning.md/things-to-check-out#update-findings](https://github.com/Denperidge-Redpencil/Learning.md/blob/main/Notes/things-to-check-out.md#update-findings).
+
+## License
+This is mostly just, config files I've written/adapted/imported from the projects I'm trying to use. But do with those what you want: public domain through the [UNLICENSE](LICENSE)
